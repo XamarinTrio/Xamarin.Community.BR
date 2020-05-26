@@ -1,34 +1,34 @@
-### Descriçao
+ï»¿### DescriÃ§ao
 
-<!-- Uma breve descrição das alterações. -->
+<!-- Uma breve descriÃ§Ã£o das alteraÃ§Ãµes. -->
 
-### Situação resolvida
-<!-- Por favor use o padrão "fixes #xx" -->
+### SituaÃ§Ã£o resolvida
+<!-- Por favor use o padrÃ£o "fixes #xx" -->
 
 - fixes #
 
-### Alteraçoes
-<!-- Liste todas as alterações (ou apenas inclua "não se aplica") -->
+### AlteraÃ§oes
+<!-- Liste todas as alteraÃ§Ãµes (ou apenas inclua "nÃ£o se aplica") -->
  
- - Não se aplica
+ - NÃ£o se aplica
 
 ### Plataformas afetadas
-<!-- Liste as plataformas afetadas pelas alterações -->
+<!-- Liste as plataformas afetadas pelas alteraÃ§Ãµes -->
 
 - Todas
 - iOS
 - Android
 
-### Alterações de comportamento
-<!-- Descreva aqui quaisquer alterações que o usuário pode esperar quando atualizar o app-->
+### AlteraÃ§Ãµes de comportamento
+<!-- Descreva aqui quaisquer alteraÃ§Ãµes que o usuÃ¡rio pode esperar quando atualizar o app-->
 
-- Não se aplica
+- NÃ£o se aplica
 
 ### Passos para reproduzir (teste)
-<!-- Liste o passo à passo para testar as alterações feitas, imagens são muito bem vindas!-->
+<!-- Liste o passo Ã  passo para testar as alteraÃ§Ãµes feitas, imagens sÃ£o muito bem vindas!-->
 
 ### PR Checklist ###
 
 - [ ] PR direcionado para o branch correto
 - [ ] PR atualizado pelo branch de destino
-- [ ] Alterações estão seguindo o padrão da codigicação
+- [ ] AlteraÃ§Ãµes estÃ£o seguindo o padrÃ£o da codigicaÃ§Ã£o
