@@ -1,34 +1,34 @@
-### Overview
+### Descriçao
 
-<!-- Describe your changes here. -->
+<!-- Uma breve descrição das alterações. -->
 
-### Issues Resolved
-<!-- Please use the format "fixes #xx" -->
+### Situação resolvida
+<!-- Por favor use o padrão "fixes #xx" -->
 
 - fixes #
 
-### API Changes
-<!-- List all changes here (or just put None) -->
+### Alteraçoes
+<!-- Liste todas as alterações (ou apenas inclua "não se aplica") -->
  
- None
+ - Não se aplica
 
-### Platforms Affected
-<!-- Please list all platforms affected by these changes -->
+### Plataformas afetadas
+<!-- Liste as plataformas afetadas pelas alterações -->
 
-- All
+- Todas
 - iOS
 - Android
-- UWP
 
-### Behavioral Changes
-<!-- Describe any changes that may change how a user's app behaves or appears when upgrading to this version of the codebase. -->
+### Alterações de comportamento
+<!-- Descreva aqui quaisquer alterações que o usuário pode esperar quando atualizar o app-->
 
-None
+- Não se aplica
 
-### Testing Procedure
-<!-- Please list the steps that should be taken to properly test these changes on each relevant platform. If you were unable to test these changes yourself on any or all platforms, please let us know. Also, if you are able to attach a video of your test run, you will be our personal hero. -->
+### Passos para reproduzir (teste)
+<!-- Liste o passo à passo para testar as alterações feitas, imagens são muito bem vindas!-->
 
 ### PR Checklist ###
 
-- [ ] Rebased on top of the target branch at time of PR
-- [ ] Changes adhere to coding standard
+- [ ] PR direcionado para o branch correto
+- [ ] PR atualizado pelo branch de destino
+- [ ] Alterações estão seguindo o padrão da codigicação
