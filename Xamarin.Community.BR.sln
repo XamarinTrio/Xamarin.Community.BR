@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2128CDBF-6268-414F-B6C3-B272C691EC03}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Xamarin.Community.BR.ruleset = Xamarin.Community.BR.ruleset
 	EndProjectSection
 EndProject
 Global
