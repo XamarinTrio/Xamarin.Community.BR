@@ -1,0 +1,62 @@
+[*.cs]
+
+root = true
+
+# Membros publicos devem possuir a primeira letra maiúscula
+dotnet_naming_rule.public_members_must_be_capitalized.symbols   = public_symbols
+dotnet_naming_symbols.public_symbols.applicable_kinds           = property,method,field,event,delegate
+dotnet_naming_symbols.public_symbols.applicable_accessibilities = public
+dotnet_naming_rule.public_members_must_be_capitalized.style     = first_word_upper_case_style
+dotnet_naming_style.first_word_upper_case_style.capitalization  = first_word_upper
+dotnet_naming_rule.public_members_must_be_capitalized.severity  = error
+
+# Constantes devem ser maiúsculas
+dotnet_naming_style.upper_case_style.capitalization              = all_upper
+dotnet_naming_rule.constant_fields_should_be_upper_case.symbols  = constant_fields
+dotnet_naming_rule.constant_fields_should_be_upper_case.style    = upper_case_style
+dotnet_naming_symbols.constant_fields.applicable_kinds           = field
+dotnet_naming_symbols.constant_fields.applicable_accessibilities = *
+dotnet_naming_symbols.constant_fields.required_modifiers         = const
+dotnet_naming_rule.constant_fields_should_be_upper_case.severity = error
+
+#Identação
+trim_trailing_whitespace = true:error
+indent_style = space
+indent_size = 4
+
+#Opções de "nova linha"
+csharp_new_line_before_open_brace = methods, types
+insert_final_newline = true
+end_of_line = "lf"
+
+#Organzação de diretivas "using"
+dotnet_sort_system_directives_first = true
+
+#Opções de espaçamento
+csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+
+#Corpo de expressões
+csharp_style_expression_bodied_constructors = false:suggestion
+csharp_style_expression_bodied_methods = false:suggestion
+
+#Utilizar `var`
+dotnet_style_predefined_type_for_locals_parameters_members = true:error
+
+#Não utilizar `this`
+dotnet_style_qualification_for_event = false:error
+dotnet_style_qualification_for_field = false:error
+dotnet_style_qualification_for_method = false:error
+dotnet_style_qualification_for_property = false:error
+
+# Sempre incluir modificadores de acessibilidade (private, public, internal etc..)
+dotnet_style_require_accessibility_modifiers = always:error
+
+# CA1034: Tipos aninhados não devem ser visíveis
+dotnet_diagnostic.CA1034.severity = none
+
+# CA1707: Identificadores não devem conter sublinhados
+dotnet_diagnostic.CA1707.severity = none

@@ -7,13 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Community.BR.Androi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Community.BR.iOS", "Xamarin.Community.BR\Xamarin.Community.BR.iOS\Xamarin.Community.BR.iOS.csproj", "{CB358BC9-CF3A-4BDB-B25C-9C2A062FBD8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Community.BR", "Xamarin.Community.BR\Xamarin.Community.BR\Xamarin.Community.BR.csproj", "{41D0C0EA-D21E-4D7B-A580-A67C3CB894FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Community.BR", "Xamarin.Community.BR\Xamarin.Community.BR\Xamarin.Community.BR.csproj", "{41D0C0EA-D21E-4D7B-A580-A67C3CB894FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4402272C-2C5F-4D89-B0DD-ABB2968186AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{78CF3416-7526-4A62-B085-765CE4FD6B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Community.BR.Tests", "Xamarin.Community.BR.Tests\Xamarin.Community.BR.Tests.csproj", "{7BF60FB7-4394-40FC-A913-9225CFBE5CDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Community.BR.Tests", "Xamarin.Community.BR.Tests\Xamarin.Community.BR.Tests.csproj", "{7BF60FB7-4394-40FC-A913-9225CFBE5CDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2128CDBF-6268-414F-B6C3-B272C691EC03}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Xamarin.Community.BR.ruleset = Xamarin.Community.BR.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
