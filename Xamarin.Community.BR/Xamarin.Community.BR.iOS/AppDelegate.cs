@@ -22,6 +22,7 @@ namespace Xamarin.Community.BR.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Xamarin.Forms.Forms.SetFlags("Brush_Experimental", "Shapes_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
