@@ -23,6 +23,7 @@ namespace Xamarin.Community.BR.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Xamarin.Forms.Forms.SetFlags("Brush_Experimental", "Shapes_Experimental");
             Platform.Init(this, savedInstanceState);
             XamForms.Init(this, savedInstanceState);
             LoadApplication(new App());
