@@ -3,8 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Xamarin.Community.BR.Views.Controles"
+             xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles"
              mc:Ignorable="d"
+             xmlns:local="clr-namespace:Xamarin.Community.BR"
              x:Class="Xamarin.Community.BR.MainPage">
-    <local:Xamarino x:Name="xamarino"/>
+    <controles:Xamarino x:Name="xamarino" Posicao="Esquerda">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup Name="Posicoes">
+
+                <VisualState Name="Frente">
+                    <VisualState.Setters>
+                        <Setter Property="OlhoDireitoAberto"
+                            Value="{x:Static local:SVG.XAMARINO_OLHO_DIREITO_ABERTO}" />
+
+                        <Setter Property="OlhoDireitoPiscando"
+                            Value="{x:Static local:SVG.XAMARINO_OLHO_DIREITO_PISCANDO}" />
+
+                        <Setter Property="OlhoDireitoFechado"
+                            Value="{x:Static local:SVG.XAMARINO_OLHO_DIREITO_FECHADO}" />
+
+                        <Setter Property="OlhoEsquerdoAberto"
+                            Value="{x:Static local:SVG.XAMARINO_OLHO_ESQUERDO_ABERTO}" />
+
+                        <Setter Property="OlhoEsquerdoPiscando"
+                            Value="{x:Static local:SVG.XAMARINO_OLHO_ESQUERDO_PISCANDO}" />
+
+                        <Setter Property="OlhoEsquerdoFechado"
+                            Value="{x:Static local:SVG.XAMARINO_OLHO_ESQUERDO_FECHADO}" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState Name="Esquerda">
+                    <VisualState.Setters>
+                        <Setter Property="OlhoDireitoAberto"
+                            Value="{x:Static local:SVG.XAMARINO_ESQUERDA_OLHO_DIREITO_ABERTO}" />
+
+                        <Setter Property="OlhoDireitoPiscando"
+                            Value="{x:Static local:SVG.XAMARINO_ESQUERDA_OLHO_DIREITO_PISCANDO}" />
+
+                        <Setter Property="OlhoDireitoFechado"
+                            Value="{x:Static local:SVG.XAMARINO_ESQUERDA_OLHO_DIREITO_FECHADO}" />
+
+                        <Setter Property="OlhoEsquerdoAberto"
+                            Value="{x:Static local:SVG.XAMARINO_ESQUERDA_OLHO_ESQUERDO_ABERTO}" />
+
+                        <Setter Property="OlhoEsquerdoPiscando"
+                            Value="{x:Static local:SVG.XAMARINO_ESQUERDA_OLHO_ESQUERDO_PISCANDO}" />
+
+                        <Setter Property="OlhoEsquerdoFechado"
+                            Value="{x:Static local:SVG.XAMARINO_ESQUERDA_OLHO_ESQUERDO_FECHADO}" />
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </controles:Xamarino>
 </ContentPage>
