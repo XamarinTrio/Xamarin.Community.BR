@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\Controles\BarraNavegacao.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Controles\Xamarino.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
