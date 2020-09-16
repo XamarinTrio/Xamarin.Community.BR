@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,12 +9,12 @@ namespace Xamarin.Community.BR.Views.Controles
     public partial class BarraNavegacao : ContentView
     {
         public static readonly BindableProperty PesquisaCommandProperty =
-            BindableProperty.Create(nameof(PesquisaCommand), typeof(ICommand), typeof(BarraNavegacao), defaultValue:default(ICommand), defaultBindingMode: BindingMode.OneTime);
+            BindableProperty.Create(nameof(PesquisaCommand), typeof(ICommand), typeof(BarraNavegacao), defaultValue: default(ICommand), defaultBindingMode: BindingMode.OneTime);
 
         public static readonly BindableProperty PesquisaTextoProperty =
-            BindableProperty.Create(nameof(PesquisaTexto), typeof(string), typeof(BarraNavegacao), defaultValue: string.Empty, defaultBindingMode: BindingMode.TwoWay, propertyChanged:AlterarTexto);
+            BindableProperty.Create(nameof(PesquisaTexto), typeof(string), typeof(BarraNavegacao), defaultValue: string.Empty, defaultBindingMode: BindingMode.TwoWay, propertyChanged: AlterarTexto);
 
-        private bool PesquisaHabilitada {get; set;}
+        private bool PesquisaHabilitada { get; set; }
 
         public ICommand PesquisaCommand
         {
@@ -26,7 +22,8 @@ namespace Xamarin.Community.BR.Views.Controles
             set => SetValue(PesquisaCommandProperty, value);
         }
 
-        public string PesquisaTexto {
+        public string PesquisaTexto
+        {
             get => (string)GetValue(PesquisaTextoProperty);
             set => SetValue(PesquisaTextoProperty, value);
         }
@@ -86,7 +83,7 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private static void AlterarTexto(BindableObject bindable, object valorAtual, object novoValor)
         {
-            if(bindable is BarraNavegacao navegacao)
+            if (bindable is BarraNavegacao navegacao)
             {
                 var pesquisaEntry = navegacao.pesquisaEntry;
                 var novoTexto = (string)novoValor;

@@ -24,12 +24,14 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private OlhosFrames olhos = OlhosFrames.Frente();
 
-        private double EscalaSVG {
+        private double EscalaSVG
+        {
             get => (double)GetValue(EscalaSVGProperty);
             set => SetValue(EscalaSVGProperty, value);
         }
 
-        public XamarinoPosicao Posicao {
+        public XamarinoPosicao Posicao
+        {
             get => (XamarinoPosicao)GetValue(PosicaoProperty);
             set => SetValue(PosicaoProperty, value);
         }
@@ -57,13 +59,16 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private void XamarinoAnimacao(double frame)
         {
-            if (frame > .99) {
+            if (frame > .99)
+            {
                 AtualizarOlhos(olhos.Direito.Fechado, olhos.Esquerdo.Fechado);
             }
-            else if (frame > .95) {
+            else if (frame > .95)
+            {
                 AtualizarOlhos(olhos.Direito.Piscando, olhos.Esquerdo.Piscando);
             }
-            else {
+            else
+            {
                 AtualizarOlhos(olhos.Direito.Aberto, olhos.Esquerdo.Aberto);
             }
         }
@@ -72,7 +77,7 @@ namespace Xamarin.Community.BR.Views.Controles
         {
             if (string.IsNullOrWhiteSpace(olhoEsquerdo) || string.IsNullOrWhiteSpace(olhoDireito))
                 return;
-            
+
             var centroX = fundo.Width / 2;
             var geometria = (Geometry)_conversor.ConvertFromInvariantString(olhoDireito);
             olho_direito.Data = geometria;
@@ -85,10 +90,11 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private static void AlterarEscalaSVG(BindableObject bindable, object valorAtual, object novoValor)
         {
-            if (bindable is Xamarino xamarino) {
+            if (bindable is Xamarino xamarino)
+            {
                 var novaEscala = (double)novoValor;
                 var fundo = xamarino.fundo;
-                var centroX = fundo.Width /2;
+                var centroX = fundo.Width / 2;
 
                 fundo.RenderTransform = new ScaleTransform(novaEscala, novaEscala, centroX, 0);
             }
@@ -96,10 +102,12 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private static void AlterarPosicao(BindableObject bindable, object valorAtual, object novoValor)
         {
-            if (bindable is Xamarino xamarino) {
+            if (bindable is Xamarino xamarino)
+            {
                 var posicao = (XamarinoPosicao)novoValor;
 
-                switch (posicao) {
+                switch (posicao)
+                {
                     case XamarinoPosicao.Esquerda:
                         xamarino.olhos = OlhosFrames.Esquerda();
                         break;
@@ -129,13 +137,16 @@ namespace Xamarin.Community.BR.Views.Controles
 
         public static OlhosFrames Frente()
         {
-            return new OlhosFrames() {
-                Direito = new OlhoFrame() {
+            return new OlhosFrames()
+            {
+                Direito = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Frente.OLHO_DIREITO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Frente.OLHO_DIREITO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Frente.OLHO_DIREITO_FECHADO
                 },
-                Esquerdo = new OlhoFrame() {
+                Esquerdo = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Frente.OLHO_ESQUERDO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Frente.OLHO_ESQUERDO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Frente.OLHO_ESQUERDO_FECHADO
@@ -145,13 +156,16 @@ namespace Xamarin.Community.BR.Views.Controles
 
         public static OlhosFrames Esquerda()
         {
-            return new OlhosFrames() {
-                Direito = new OlhoFrame() {
+            return new OlhosFrames()
+            {
+                Direito = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Esquerda.OLHO_DIREITO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Esquerda.OLHO_DIREITO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Esquerda.OLHO_DIREITO_FECHADO
                 },
-                Esquerdo = new OlhoFrame() {
+                Esquerdo = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Esquerda.OLHO_ESQUERDO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Esquerda.OLHO_ESQUERDO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Esquerda.OLHO_ESQUERDO_FECHADO
@@ -161,13 +175,16 @@ namespace Xamarin.Community.BR.Views.Controles
 
         public static OlhosFrames Direita()
         {
-            return new OlhosFrames() {
-                Direito = new OlhoFrame() {
+            return new OlhosFrames()
+            {
+                Direito = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Direita.OLHO_DIREITO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Direita.OLHO_DIREITO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Direita.OLHO_DIREITO_FECHADO
                 },
-                Esquerdo = new OlhoFrame() {
+                Esquerdo = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Direita.OLHO_ESQUERDO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Direita.OLHO_ESQUERDO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Direita.OLHO_ESQUERDO_FECHADO
@@ -177,13 +194,16 @@ namespace Xamarin.Community.BR.Views.Controles
 
         public static OlhosFrames Cima()
         {
-            return new OlhosFrames() {
-                Direito = new OlhoFrame() {
+            return new OlhosFrames()
+            {
+                Direito = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Cima.OLHO_DIREITO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Cima.OLHO_DIREITO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Cima.OLHO_DIREITO_FECHADO
                 },
-                Esquerdo = new OlhoFrame() {
+                Esquerdo = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Cima.OLHO_ESQUERDO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Cima.OLHO_ESQUERDO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Cima.OLHO_ESQUERDO_FECHADO
@@ -193,13 +213,16 @@ namespace Xamarin.Community.BR.Views.Controles
 
         public static OlhosFrames Baixo()
         {
-            return new OlhosFrames() {
-                Direito = new OlhoFrame() {
+            return new OlhosFrames()
+            {
+                Direito = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Baixo.OLHO_DIREITO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Baixo.OLHO_DIREITO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Baixo.OLHO_DIREITO_FECHADO
                 },
-                Esquerdo = new OlhoFrame() {
+                Esquerdo = new OlhoFrame()
+                {
                     Aberto = Constantes.SVG.Xamarino.Baixo.OLHO_ESQUERDO_ABERTO,
                     Piscando = Constantes.SVG.Xamarino.Baixo.OLHO_ESQUERDO_PISCANDO,
                     Fechado = Constantes.SVG.Xamarino.Baixo.OLHO_ESQUERDO_FECHADO
