@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Xamarin.Community.BR.Views.Controles.Xamarino"
-             xmlns:local="clr-namespace:Xamarin.Community.BR">
+             AutomationProperties.HelpText="Botão de home"
+             AutomationProperties.IsInAccessibleTree="True"
+             AutomationProperties.Name="Xamarino"
+             HorizontalOptions="Start"
+             VerticalOptions="Start">
   <ContentView.Content>
-        <Grid BackgroundColor="Transparent">
+        <Grid x:Name="grid">
             <!--Fundo-->
-            <Path Data="M128.675 53L101.175 5.09999C99.3749 2.09999 95.9749 0.1 92.4749 0H37.4749C33.9749 0 30.5749 1.99999 28.7749 5.09999L1.27494 53C-0.425061 56.1 -0.425061 60.1 1.27494 63.1L28.7749 111C30.5749 114 33.9749 116 37.4749 116.1H92.4749C95.9749 116.1 99.3749 114.1 101.175 111L128.675 63.1C130.375 60.1 130.375 56.1 128.675 53Z">
+            <Path x:Name="fundo">
                 <Path.Fill>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Color="#2287CA" Offset="0"/>
