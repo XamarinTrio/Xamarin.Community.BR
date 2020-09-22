@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using Xamarin.Community.BR.Views.Controles;
 using Xamarin.Forms;
 
 namespace Xamarin.Community.BR
@@ -14,7 +16,7 @@ namespace Xamarin.Community.BR
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            xamarino.IniciarAnimacao();
+            navegacao.IniciarAnimacao();
         }
     }
 }
