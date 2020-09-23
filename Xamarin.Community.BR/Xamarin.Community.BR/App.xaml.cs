@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Community.BR.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +10,7 @@ namespace Xamarin.Community.BR
         public App()
         {
             InitializeComponent();
+            TaskExtensions.DefinirAoDispararExcecaoPadrao(ex => Console.WriteLine(ex));
 
             MainPage = new MainPage();
         }
