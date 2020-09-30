@@ -6,7 +6,6 @@ using Xamarin.Forms.Xaml;
 
 namespace Xamarin.Community.BR.Views.Controles
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BarraNavegacao : ContentView
     {
         public static readonly BindableProperty PesquisaCommandProperty =
