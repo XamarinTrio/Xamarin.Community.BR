@@ -2,14 +2,30 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Xamarin.Community.BR.Views.Controles.BarraNavegacao"
+             xmlns:gr="clr-namespace:Xamarin.Community.BR.Renderers.Gradients"
              xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles">
   <ContentView.Content>
         <Grid ColumnSpacing="0"
               ColumnDefinitions="17.5*,65*,17.5*"
               RowDefinitions="10*,60*,30*" 
               HorizontalOptions="FillAndExpand">
-            
-            <!--Sombra escura do fundo-->
+
+            <controles:SvgView
+                Grid.RowSpan="2"
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Path="M174.619,53.6v-.018c-.01-.378-.433-13.056-12.81-13.585H20A20,20,0,0,1,20,0H354a20,20,0,1,1,0,40H212.192c-12.564.537-12.811,13.6-12.811,13.6a12.381,12.381,0,0,1-24.762,0Z">
+                <controles:SvgView.BackgroundGradient>
+                    <gr:LinearGradient Angle="90">
+                        <gr:LinearGradient.Stops>
+                            <gr:GradientStop Offset="0" Color="#f7f7f7"/>
+                            <gr:GradientStop Offset="1" Color="#f2f2f2"/>
+                        </gr:LinearGradient.Stops>
+                    </gr:LinearGradient>
+                </controles:SvgView.BackgroundGradient>
+            </controles:SvgView>
+
+            <!--Sombra escura do fundo--><!--
             <Path Aspect="Uniform"
                   Grid.ColumnSpan="3"
                   Grid.Row="1"
@@ -26,7 +42,7 @@
                 </Path.Fill>
             </Path>
 
-            <!--Sombra clara do fundo-->
+            --><!--Sombra clara do fundo--><!--
             <Path Aspect="Uniform"
                   Grid.ColumnSpan="3"
                   Grid.RowSpan="2"
@@ -36,7 +52,7 @@
                   Fill="#FFFFFF"
                   Data="M174.619,53.6v-.018c-.01-.378-.433-13.056-12.81-13.585H20A20,20,0,0,1,20,0H354a20,20,0,1,1,0,40H212.192c-12.564.537-12.811,13.6-12.811,13.6a12.381,12.381,0,0,1-24.762,0Z"/>
 
-            <!--Fundo-->
+            --><!--Fundo--><!--
             <Path Aspect="Uniform"
                   Grid.RowSpan="2"
                   Grid.Row="1"
@@ -48,7 +64,7 @@
                         <GradientStop Offset="1" Color="#f2f2f2"/>
                     </LinearGradientBrush>
                 </Path.Fill>
-            </Path>
+            </Path>-->
 
             <!--Botão de pesquisa-->
             <Path Data="M17.8133072,16.3990936 L22.4105339,20.9963203 C22.8010582,21.3868446 22.8010582,22.0200096 22.4105339,22.4105339 C22.0200096,22.8010582 21.3868446,22.8010582 20.9963203,22.4105339 L16.3990936,17.8133072 C14.8594228,19.044935 12.9064215,19.7814078 10.7814078,19.7814078 C5.81084508,19.7814078 1.78140783,15.7519706 1.78140783,10.7814078 C1.78140783,5.81084508 5.81084508,1.78140783 10.7814078,1.78140783 C15.7519706,1.78140783 19.7814078,5.81084508 19.7814078,10.7814078 C19.7814078,12.9064215 19.044935,14.8594228 17.8133072,16.3990936 L17.8133072,16.3990936 Z M10.7814078,17.7814078 C14.6474011,17.7814078 17.7814078,14.6474011 17.7814078,10.7814078 C17.7814078,6.91541458 14.6474011,3.78140783 10.7814078,3.78140783 C6.91541458,3.78140783 3.78140783,6.91541458 3.78140783,10.7814078 C3.78140783,14.6474011 6.91541458,17.7814078 10.7814078,17.7814078 Z"
