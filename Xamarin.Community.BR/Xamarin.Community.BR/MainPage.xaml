@@ -9,32 +9,33 @@
              mc:Ignorable="d"
              BackgroundColor="#f5f5f5"
              x:Class="Xamarin.Community.BR.MainPage">
-    <Grid RowDefinitions="10*,10*,68*,9.5*,2.5*"
+    <Grid RowDefinitions="10*,10*,68*,10*,1.5*"
           Padding="0,5">
 
         <Label Text="Olá"
                FontFamily="ProximaNovaBold"
                VerticalOptions="CenterAndExpand"
                HorizontalOptions="CenterAndExpand"
-               TextColor="#"
+               TextColor="Black"
                FontSize="Title"
                FontAttributes="Bold"/>
 
         <controles:NeoFrame Grid.Row="1"
-                            Margin="20,5"
+                            Margin="15,1"
+                            Padding="0"
                             CornerRadius="45"
-                            ShadowBlur="8"
-                            Elevation=".3"
-                            BackgroundColor="Transparent"
+                            ShadowBlur="15"
+                            Elevation=".2"
                             DrawInnerShadow="True"
                             DrawOuterShadow="True">
-            
+
             <Label FontSize="Medium"
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand"
-               FontFamily="ProximaNova"
-               TextColor="Black"
-               Text="Descubra mais 140 devs pelo Brasil!!"/>
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalTextAlignment="Center"
+                   FontFamily="ProximaNova"
+                   TextColor="Black"
+                   Text="Descubra mais 140 devs pelo Brasil!!"/>
             
             <controles:NeoFrame.BackgroundGradient>
                 <gr:LinearGradient Angle="90">
@@ -45,6 +46,7 @@
                 </gr:LinearGradient>
             </controles:NeoFrame.BackgroundGradient>
         </controles:NeoFrame>
+
 
         <controles:BarraNavegacao x:Name="navegacao"
                                   PesquisaCommand="{Binding PesquisaCommand}"

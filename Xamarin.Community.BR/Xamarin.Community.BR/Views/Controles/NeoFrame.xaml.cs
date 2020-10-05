@@ -63,9 +63,6 @@ namespace Xamarin.Community.BR.Views.Controles
 
         protected override void DesenharControle(RenderContext context)
         {
-            context.Paint.ImageFilter = null;
-            context.Paint.Style = SKPaintStyle.Stroke;
-            context.Paint.MaskFilter = null;
             base.DesenharControle(context);
         }
     }

@@ -25,7 +25,20 @@ namespace Xamarin.Community.BR.Views.Controles
             InitializeComponent();
         }
 
-        protected override SKPath CriarPath(float largura, float altura, float padding) =>
-            SKPath.ParseSvgPathData(Path);
+        protected override SKPath CriarPath(float largura, float altura, float padding)
+        {
+            if (string.IsNullOrEmpty(Path))
+                return default(SKPath);
+
+            var path = SKPath.ParseSvgPathData(Path);
+            var bounds = path.Bounds;
+
+            var xRatio = largura / bounds.Width;
+            var yRatio = altura / bounds.Height;
+
+            path.Transform(SKMatrix.CreateScaleTranslation(xRatio, yRatio, padding, padding));
+
+            return path;
+        }
     }
 }

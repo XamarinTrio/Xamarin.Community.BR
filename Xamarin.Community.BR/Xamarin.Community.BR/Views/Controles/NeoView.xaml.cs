@@ -44,13 +44,6 @@ namespace Xamarin.Community.BR.Views.Controles
             defaultValue: 9.0,
             propertyChanged: OnVisualPropertyChanged);
 
-        public static readonly BindableProperty LightShadowColorProperty = BindableProperty.Create(
-            propertyName: nameof(LightShadowColor),
-            returnType: typeof(Color),
-            declaringType: typeof(NeoView),
-            defaultValue: Color.White,
-            propertyChanged: OnVisualPropertyChanged);
-
         public static readonly BindableProperty DarkShadowColorProperty = BindableProperty.Create(
             propertyName: nameof(DarkShadowColor),
             returnType: typeof(Color),
@@ -134,12 +127,6 @@ namespace Xamarin.Community.BR.Views.Controles
             set => SetValue(ShadowBlurProperty, value);
         }
 
-        public Color LightShadowColor
-        {
-            get => (Color)GetValue(LightShadowColorProperty);
-            set => SetValue(LightShadowColorProperty, value);
-        }
-
         public Color DarkShadowColor
         {
             get => (Color)GetValue(DarkShadowColorProperty);
@@ -160,21 +147,30 @@ namespace Xamarin.Community.BR.Views.Controles
 
             using (var paint = new SKPaint())
             {
-                paint.IsAntialias = true;
-                paint.Style = SKPaintStyle.Fill;
-
                 var context = new RenderContext(canvas, paint, e.Info);
-                SetPaintColor(context);
 
                 if (DrawOuterShadow)
+                {
+                    SetPaintDefaults(context);
                     DesenharSombraExterna(context);
+                }
 
-                SetPaintColor(context);
+                SetPaintDefaults(context);
                 DesenharControle(context);
 
                 if (DrawInnerShadow)
+                {
+                    SetPaintDefaults(context);
                     DesenharSombraInterna(context);
+                }
             }
+        }
+
+        protected void SetPaintDefaults(RenderContext context)
+        {
+            context.Paint.IsAntialias = true;
+            context.Paint.Style = SKPaintStyle.Fill;
+            SetPaintColor(context);
         }
 
         protected virtual void SetPaintColor(RenderContext context)
@@ -196,17 +192,10 @@ namespace Xamarin.Community.BR.Views.Controles
             var diameter = padding * 2;
             var largura = context.Info.Width - diameter;
             var altura = context.Info.Height - diameter;
-
             using (var path = CriarPath(largura, altura, padding))
             {
-                context.Canvas.ClipPath(path);
-                context.Paint.Style = SKPaintStyle.Stroke;
-                context.Paint.StrokeWidth = fShadowDistance;
-
-                context.Paint.ImageFilter = LightShadowColor.ToSKDropShadow(-fShadowDistance);
-                context.Canvas.DrawPath(path, context.Paint);
-
-                context.Paint.ImageFilter = darkShadow.ToSKDropShadow(fShadowDistance);
+                context.Canvas.ClipPath(path, antialias: true);
+                context.Paint.ImageFilter = darkShadow.ToSKDropShadow(-fShadowDistance);
                 context.Canvas.DrawPath(path, context.Paint);
             }
         }
@@ -221,6 +210,7 @@ namespace Xamarin.Community.BR.Views.Controles
 
             using (var path = CriarPath(largura, altura, padding))
             {
+                context.Paint.MaskFilter = null;
                 context.Canvas.DrawPath(path, context.Paint);
             }
         }
@@ -231,7 +221,6 @@ namespace Xamarin.Community.BR.Views.Controles
             var darkShadow = Color.FromRgba(DarkShadowColor.R, DarkShadowColor.G, DarkShadowColor.B, Elevation);
             var padding = Convert.ToSingle(ShadowBlur * 2);
 
-            SetPaintColor(context);
             context.Paint.MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, Convert.ToSingle(ShadowBlur));
 
             var diameter = padding * 2;
@@ -240,9 +229,6 @@ namespace Xamarin.Community.BR.Views.Controles
             using (var path = CriarPath(largura, altura, padding))
             {
                 context.Paint.ImageFilter = darkShadow.ToSKDropShadow(fShadowDistance);
-                context.Canvas.DrawPath(path, context.Paint);
-
-                context.Paint.ImageFilter = LightShadowColor.ToSKDropShadow(-fShadowDistance);
                 context.Canvas.DrawPath(path, context.Paint);
             }
         }
