@@ -12,6 +12,10 @@
     <Grid RowDefinitions="10*,10*,68*,10*,1.5*"
           Padding="0,5">
 
+        <controles:Mapa Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.RowSpan="5"/>
+        
         <Label Text="Olá"
                FontFamily="ProximaNovaBold"
                VerticalOptions="CenterAndExpand"
@@ -21,7 +25,7 @@
                FontAttributes="Bold"/>
 
         <controles:NeoFrame Grid.Row="1"
-                            Margin="15,1"
+                            Margin="{OnPlatform Android='15,1',iOS='40,1'}"
                             Padding="0"
                             CornerRadius="45"
                             ShadowBlur="15"
@@ -48,8 +52,9 @@
         </controles:NeoFrame>
 
 
+
         <controles:BarraNavegacao x:Name="navegacao"
-                                  PesquisaCommand="{Binding PesquisaCommand}"
+                                  PesquisaCommand="{Binding PesquisaCommand, Mode=OneTime}"
                                   Grid.Row="3"
                                   Padding="2"
                                   Grid.RowSpan="2"/>
