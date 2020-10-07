@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles"
+             xmlns:gr="clr-namespace:Xamarin.Community.BR.Renderers.Gradients"
              xmlns:ex="clr-namespace:Xamarin.Community.BR.Extensions"
              mc:Ignorable="d"
              BackgroundColor="#f5f5f5"
              x:Class="Xamarin.Community.BR.MainPage">
-    <Grid RowDefinitions="10*,10*,68*,9.5*,2.5*"
+    <Grid RowDefinitions="10*,10*,68*,10*,1.5*"
           Padding="0,5">
 
         <Label Text="Olá"
@@ -19,42 +20,34 @@
                FontSize="Title"
                FontAttributes="Bold"/>
 
-        <Frame Grid.Row="1"
-               Margin="20,10"
-               Padding="0"
-               TranslationX="2"
-               TranslationY="2"
-               Opacity=".3"
-               CornerRadius="30"
-               BackgroundColor="Black"/>
+        <controles:NeoFrame Grid.Row="1"
+                            Margin="15,1"
+                            Padding="0"
+                            CornerRadius="45"
+                            ShadowBlur="15"
+                            Elevation=".2"
+                            DrawInnerShadow="True"
+                            DrawOuterShadow="True">
 
-        <Frame Grid.Row="1"
-               Margin="20,10"
-               Padding="0"
-               TranslationX="-2"
-               TranslationY="-2"
-               CornerRadius="30"
-               BackgroundColor="#FFFFFF"/>
-
-        <Frame Grid.Row="1"
-               Margin="20,10"
-               Padding="0"
-               CornerRadius="30" >
-            <Frame.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Offset="0" Color="#f7f7f7"/>
-                    <GradientStop Offset="1" Color="#f2f2f2"/>
-                </LinearGradientBrush>
-            </Frame.Background>
-            
             <Label FontSize="Medium"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                FontFamily="ProximaNova"
-                TextColor="Black"
-                Text="Descubra mais 140 devs pelo Brasil!!"/>
-        </Frame>
-        
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalTextAlignment="Center"
+                   FontFamily="ProximaNova"
+                   TextColor="Black"
+                   Text="Descubra mais 140 devs pelo Brasil!!"/>
+            
+            <controles:NeoFrame.BackgroundGradient>
+                <gr:LinearGradient Angle="90">
+                    <gr:LinearGradient.Stops>
+                        <gr:GradientStop Offset="0" Color="#f7f7f7" />
+                        <gr:GradientStop Offset="1" Color="#f2f2f2" />
+                    </gr:LinearGradient.Stops>
+                </gr:LinearGradient>
+            </controles:NeoFrame.BackgroundGradient>
+        </controles:NeoFrame>
+
+
         <controles:BarraNavegacao x:Name="navegacao"
                                   PesquisaCommand="{Binding PesquisaCommand}"
                                   Grid.Row="3"
