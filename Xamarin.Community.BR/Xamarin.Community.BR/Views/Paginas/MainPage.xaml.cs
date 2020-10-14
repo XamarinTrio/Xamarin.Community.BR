@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Threading.Tasks;
-using Xamarin.Community.BR.Views.Controles;
 using Xamarin.Forms;
 
 namespace Xamarin.Community.BR
@@ -17,6 +15,7 @@ namespace Xamarin.Community.BR
         {
             base.OnAppearing();
             navegacao.IniciarAnimacao();
+            mapa.ResetarMapa();
         }
     }
 }
