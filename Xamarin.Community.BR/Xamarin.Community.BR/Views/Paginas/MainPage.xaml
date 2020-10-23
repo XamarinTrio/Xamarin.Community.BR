@@ -12,7 +12,8 @@
     <Grid RowDefinitions="10*,10*,68*,10*,1.5*"
           Padding="0,5">
 
-        <controles:Mapa Grid.Row="0"
+        <controles:Mapa x:Name="mapa"
+                        Grid.Row="0"
                         Grid.Column="0"
                         Grid.RowSpan="5"/>
         
