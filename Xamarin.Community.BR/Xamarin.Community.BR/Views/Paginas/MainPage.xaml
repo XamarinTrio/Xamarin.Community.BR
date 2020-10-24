@@ -4,15 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles"
+             xmlns:vm="clr-namespace:Xamarin.Community.BR.ViewModels.Paginas"
              xmlns:gr="clr-namespace:Xamarin.Community.BR.Renderers.Gradients"
              xmlns:ex="clr-namespace:Xamarin.Community.BR.Extensions"
+             x:DataType="vm:MainPageViewModel"
              mc:Ignorable="d"
              BackgroundColor="#f5f5f5"
-             x:Class="Xamarin.Community.BR.MainPage">
+             NavigationPage.HasNavigationBar="False"
+             x:Class="Xamarin.Community.BR.Views.Paginas.MainPage">
     <Grid RowDefinitions="10*,10*,68*,10*,1.5*"
           Padding="0,5">
 
         <controles:Mapa x:Name="mapa"
+                        ItemSource="{Binding Pins, Mode=OneTime}"
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.RowSpan="5"/>
@@ -51,8 +55,6 @@
                 </gr:LinearGradient>
             </controles:NeoFrame.BackgroundGradient>
         </controles:NeoFrame>
-
-
 
         <controles:BarraNavegacao x:Name="navegacao"
                                   PesquisaCommand="{Binding PesquisaCommand, Mode=OneTime}"
