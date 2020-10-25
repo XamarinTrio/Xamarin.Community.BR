@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Xamarin.Forms;
 
-namespace Xamarin.Community.BR
+namespace Xamarin.Community.BR.Views.Paginas
 {
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage

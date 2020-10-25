@@ -2,6 +2,11 @@
 {
     public static class Constantes
     {
+        public static class Gravatar
+        {
+            public const string URL_BASE = "";
+        }
+
         public static class SVG
         {
             public static class Xamarino
