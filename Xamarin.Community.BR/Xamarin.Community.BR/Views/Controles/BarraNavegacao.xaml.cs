@@ -11,6 +11,9 @@ namespace Xamarin.Community.BR.Views.Controles
         public static readonly BindableProperty PesquisaCommandProperty =
             BindableProperty.Create(nameof(PesquisaCommand), typeof(ICommand), typeof(BarraNavegacao), defaultValue: default(ICommand), defaultBindingMode: BindingMode.OneTime);
 
+        public static readonly BindableProperty BotaoInferiorCommandProperty =
+            BindableProperty.Create(nameof(BotaoInferiorCommand), typeof(ICommand), typeof(BarraNavegacao), defaultValue: default(ICommand), defaultBindingMode: BindingMode.OneTime);
+
         public static readonly BindableProperty PesquisaTextoProperty =
             BindableProperty.Create(nameof(PesquisaTexto), typeof(string), typeof(BarraNavegacao), defaultValue: string.Empty, defaultBindingMode: BindingMode.TwoWay, propertyChanged: AlterarTexto);
 
@@ -22,6 +25,12 @@ namespace Xamarin.Community.BR.Views.Controles
         {
             get => (ICommand)GetValue(PesquisaCommandProperty);
             set => SetValue(PesquisaCommandProperty, value);
+        }
+
+        public ICommand BotaoInferiorCommand
+        {
+            get => (ICommand)GetValue(BotaoInferiorCommandProperty);
+            set => SetValue(BotaoInferiorCommandProperty, value);
         }
 
         public string PesquisaTexto
@@ -59,8 +68,8 @@ namespace Xamarin.Community.BR.Views.Controles
                 if (PesquisaCommand == null)
                     return;
 
-                if (PesquisaCommand.CanExecute(this))
-                    PesquisaCommand.Execute(this);
+                if (PesquisaCommand.CanExecute(pesquisaEntry.Text))
+                    PesquisaCommand.Execute(pesquisaEntry.Text);
             }
             else
             {
@@ -75,6 +84,9 @@ namespace Xamarin.Community.BR.Views.Controles
                 return;
 
             AnimarXamarinoCimaAsync().TentarExecutar();
+
+            if (BotaoInferiorCommand?.CanExecute(this) == true)
+                BotaoInferiorCommand?.Execute(this);
         }
 
         private async Task AnimarXamarinoCimaAsync()
