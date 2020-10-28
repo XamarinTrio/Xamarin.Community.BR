@@ -2,9 +2,19 @@
 {
     public static class Constantes
     {
+        public static class Navegacao
+        {
+            public const string URL_RELATIVA = "/";
+            public const string URL_REMOCAO = "../";
+            public const string DELIMITADOR_QUERY = "?";
+        }
+
         public static class Gravatar
         {
-            public const string URL_BASE = "";
+            /// <see href="https://github.com/planetxamarin/planetxamarin/blob/7fd6555be5a34a95badc26ec053f448a5bf93961/src/Firehose.Web/Views/Authors/Map.cshtml#L59"/>
+            public const string URL_BASE = "https://www.gravatar.com/avatar/";
+
+            public const int TAMANHO_PADRAO = 64;
         }
 
         public static class SVG
