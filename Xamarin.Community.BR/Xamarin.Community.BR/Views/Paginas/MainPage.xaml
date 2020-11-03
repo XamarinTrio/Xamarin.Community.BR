@@ -6,10 +6,9 @@
              xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles"
              xmlns:vm="clr-namespace:Xamarin.Community.BR.ViewModels.Paginas"
              xmlns:gr="clr-namespace:Xamarin.Community.BR.Renderers.Gradients"
-             xmlns:ex="clr-namespace:Xamarin.Community.BR.Extensions"
              x:DataType="vm:MainPageViewModel"
              mc:Ignorable="d"
-             BackgroundColor="#f5f5f5"
+             BackgroundColor="{StaticResource PaginaBackgroundColor}"
              NavigationPage.HasNavigationBar="False"
              x:Class="Xamarin.Community.BR.Views.Paginas.MainPage">
     <Grid RowDefinitions="10*,10*,68*,10*,1.5*"
@@ -58,6 +57,7 @@
 
         <controles:BarraNavegacao x:Name="navegacao"
                                   PesquisaCommand="{Binding PesquisaCommand, Mode=OneTime}"
+                                  BotaoInferiorCommand="{Binding DevsPageCommand, Mode=OneTime}"
                                   Grid.Row="3"
                                   Padding="2"
                                   Grid.RowSpan="2"/>

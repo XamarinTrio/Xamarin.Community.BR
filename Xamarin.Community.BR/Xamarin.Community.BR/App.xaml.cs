@@ -16,15 +16,13 @@ namespace Xamarin.Community.BR
             TaskExtensions.DefinirAoDispararExcecaoPadrao(ex => Console.WriteLine(ex));
 
             var startup = new Startup();
-            startup.Init();
 
             _navegacaoService = startup.PegarNavegacao();
-
+            _navegacaoService.NavegarAsync("MainPage").TentarExecutar();
         }
 
         protected override void OnStart()
         {
-            _navegacaoService.NavegarAsync("MainPage").TentarExecutar();
         }
 
         protected override void OnSleep()

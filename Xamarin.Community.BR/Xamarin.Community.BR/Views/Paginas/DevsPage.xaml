@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles"
+             xmlns:vm="clr-namespace:Xamarin.Community.BR.ViewModels.Paginas"
+             x:Class="Xamarin.Community.BR.Views.Paginas.DevsPage"
+             x:DataType="vm:DevsPageViewModel"
+             BackgroundColor="{StaticResource PaginaBackgroundColor}"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid RowDefinitions="15*,73.5*,11.5*"
+              RowSpacing="0">
+
+            <Label Text="{Binding Texto, Mode=OneWay}"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   Grid.Row="1"/>
+
+            <controles:BarraNavegacao x:Name="navegacao"
+                                  PesquisaCommand="{Binding PesquisaCommand, Mode=OneTime}"
+                                  Grid.Row="2"
+                                  Padding="2"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

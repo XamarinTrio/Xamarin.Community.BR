@@ -6,6 +6,6 @@
              mc:Ignorable="d"
              x:Class="Xamarin.Community.BR.App">
     <Application.Resources>
-
+        <Color x:Key="PaginaBackgroundColor">#f5f5f5</Color>
     </Application.Resources>
 </Application>

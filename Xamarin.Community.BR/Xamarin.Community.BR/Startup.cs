@@ -14,12 +14,8 @@ namespace Xamarin.Community.BR
         public Startup()
         {
             _container = TinyIoCContainer.Current;
-            _navegacao = new NavegacaoService(_container);
-        }
 
-        public void Init()
-        {
-            _navegacao.Init();
+            _navegacao = new NavegacaoService(_container);
             _container.Register<INavegacaoService>(_navegacao);
             _container.Register<IPerfilService, PerfilService>();
             _container.Register<MainPageViewModel>();

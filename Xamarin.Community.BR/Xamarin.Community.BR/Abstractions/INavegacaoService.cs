@@ -4,7 +4,7 @@ namespace Xamarin.Community.BR.Abstractions
 {
     public interface INavegacaoService
     {
-        void Init();
         Task NavegarAsync(string url);
+        Task NavegarAsync(string url, bool animado);
     }
 }
