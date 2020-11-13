@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Svg.Skia;
@@ -30,7 +31,33 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private double escala = 1;
 
-        public IEnumerable<IPin> ItemSource 
+        public static readonly BindableProperty PosicaoXProperty = BindableProperty.Create(
+            nameof(PosicaoX), 
+            typeof(float),
+            typeof(Mapa),
+            -51.088751f,
+            propertyChanged: OnItemSourceChanged);
+
+        public static readonly BindableProperty PosicaoYProperty = BindableProperty.Create(
+            nameof(PosicaoY),
+            typeof(float),
+            typeof(Mapa),
+            -29.940163f,
+            propertyChanged: OnItemSourceChanged);
+
+        public float PosicaoY
+        {
+            get => (float)GetValue(PosicaoYProperty);
+            set => SetValue(PosicaoYProperty, value);
+        }
+
+        public float PosicaoX
+        {
+            get => (float)GetValue(PosicaoXProperty);
+            set => SetValue(PosicaoXProperty, value);
+        }
+
+        public IEnumerable<IPin> ItemSource
         {
             get => (IEnumerable<IPin>)GetValue(ItemSourceProperty);
             set => SetValue(ItemSourceProperty, value);
@@ -57,10 +84,10 @@ namespace Xamarin.Community.BR.Views.Controles
 
         public void ResetarMapa()
         {
-            if(posicaoX != 0 || posicaoY != 0)
+            if (posicaoX != 0 || posicaoY != 0)
                 ReposicionarCanvas();
 
-            if(escala != 1)
+            if (escala != 1)
                 EscalarCanvas();
         }
 
@@ -146,7 +173,7 @@ namespace Xamarin.Community.BR.Views.Controles
 
             canvas.Clear();
             DesenharSvg(canvas, largura, altura, Constantes.SVG.Mapa.CONTORNO);
-            DesenharPins();
+            DesenharPins(canvas, largura, altura);
         }
 
         private static void DesenharSvg(SKCanvas canvas, int largura, int altura, string nome)
@@ -178,15 +205,53 @@ namespace Xamarin.Community.BR.Views.Controles
             }
         }
 
-        private void DesenharPins()
+        private void DesenharPins(SKCanvas canvas, int largura, int altura)
         {
             if (ItemSource?.Any() != true)
                 return;
 
-            foreach(var pin in ItemSource)
+            foreach (var pin in ItemSource)
             {
-                var posicaoX = pin.GetLatitude();
-                var posicaoY = pin.GetLongitude();
+                //Regra de três
+                //1080 => 600f
+                //largura => larguraParam
+                var larguraParam = (largura * 600f) / 1080f;
+
+                //Regra de três
+                //1705f => 1270f
+                //altura => alturaParam
+                var alturaParam = (altura * 1270f) / 1705f;
+
+                //Regra de três
+                //51.088751f => larguraParam
+                //50.0000 => canvasposx
+                var pinPosX = (larguraParam * Math.Abs(PosicaoX)) / 51.088751f;
+
+                //Regra de três
+                //29.940163f - alturaParam
+                //23.00000 - canvasPosY
+                var pinPosY = (Math.Abs(PosicaoY) * alturaParam) / 29.940163f;
+
+                using (var paint = new SKPaint())
+                {
+                    paint.Color = SKColor.Parse("#313639");
+                    paint.Style = SKPaintStyle.Fill;
+                    paint.IsAntialias = true;
+
+                    using (var path = new SKPath())
+                    {
+                        var metadeLargura = Constantes.Pin.LARGURA / 2;
+                        var raioPosY = pinPosY - (Constantes.Pin.ALTURA * 0.6f);
+
+                        path.MoveTo(pinPosX, pinPosY);
+                        path.ArcTo(Constantes.Pin.RAIO, new SKPoint(pinPosX - metadeLargura, raioPosY));
+                        path.ArcTo(metadeLargura, new SKPoint(pinPosX + metadeLargura, raioPosY));
+                        path.ArcTo(Constantes.Pin.RAIO, new SKPoint(pinPosX, pinPosY));
+                        path.Close();
+
+                        canvas.DrawPath(path, paint);
+                    }
+                }
             }
         }
 
@@ -195,16 +260,22 @@ namespace Xamarin.Community.BR.Views.Controles
             canvas.InvalidateSurface();
         }
 
+        private static void OnTamanhoPinChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is Mapa mapa)
+                mapa.canvas.InvalidateSurface();
+        }
+
         private static void OnItemSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if(bindable is Mapa mapa)
+            if (bindable is Mapa mapa)
             {
-                if(oldValue is INotifyCollectionChanged oldCollection)
+                if (oldValue is INotifyCollectionChanged oldCollection)
                 {
                     oldCollection.CollectionChanged -= mapa.ItemSourceCollectionChanged;
                 }
 
-                if(newValue is INotifyCollectionChanged newCollection)
+                if (newValue is INotifyCollectionChanged newCollection)
                 {
                     newCollection.CollectionChanged += mapa.ItemSourceCollectionChanged;
                 }

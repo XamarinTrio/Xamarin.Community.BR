@@ -1,7 +1,16 @@
-﻿namespace Xamarin.Community.BR
+﻿using SkiaSharp;
+
+namespace Xamarin.Community.BR
 {
     public static class Constantes
     {
+        public static class Pin
+        {
+            public const int LARGURA = 60;
+            public const int ALTURA = 70;
+            public const int RAIO = 50;
+        }
+
         public static class Navegacao
         {
             public const string URL_RELATIVA = "/";
