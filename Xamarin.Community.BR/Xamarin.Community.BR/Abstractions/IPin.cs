@@ -1,11 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using Xamarin.Community.BR.Helpers;
+using Xamarin.Forms;
 
 namespace Xamarin.Community.BR.Abstractions
 {
     public interface IPin
     {
-        double GetLatitude();
-        double GetLongitude();
+        GeoLocalizacao GetGeolocalizacao();
 
         ImageSource GetAvatar();
     }

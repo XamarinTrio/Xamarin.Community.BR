@@ -16,8 +16,6 @@
 
         <controles:Mapa x:Name="mapa"
                         ItemSource="{Binding Pins, Mode=OneTime}"
-                        PosicaoX="-49.068776"
-                        PosicaoY="-26.914236"
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.RowSpan="5"/>
