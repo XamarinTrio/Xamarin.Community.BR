@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Community.BR.Abstractions;
@@ -9,14 +10,12 @@ namespace Xamarin.Community.BR.Helpers
 {
     public struct Pin : IPin, IEquatable<Pin>
     {
-        private readonly double _latitude;
-        private readonly double _longitute;
+        private readonly GeoLocalizacao _geolocalizacao;
         private readonly ImageSource _avatar;
 
-        public Pin(double latitude, double longitude, ImageSource avatar)
+        public Pin(GeoLocalizacao geolocalizacao, ImageSource avatar)
         {
-            _latitude = latitude;
-            _longitute = longitude;
+            _geolocalizacao = geolocalizacao;
             _avatar = avatar;
         }
 
@@ -24,9 +23,7 @@ namespace Xamarin.Community.BR.Helpers
 
         public ImageSource GetAvatar() => _avatar;
 
-        public double GetLatitude() => _latitude;
-
-        public double GetLongitude() => _longitute;
+        public GeoLocalizacao GetGeolocalizacao() => _geolocalizacao;
 
         #endregion
 
@@ -34,8 +31,8 @@ namespace Xamarin.Community.BR.Helpers
 
         public bool Equals(Pin other)
         {
-            return _latitude == other._latitude &&
-                   _longitute == other._longitute &&
+            return _geolocalizacao.Latitude == other._geolocalizacao.Latitude &&
+                   _geolocalizacao.Longitude == other._geolocalizacao.Longitude &&
                    _avatar == other._avatar;
         }
 

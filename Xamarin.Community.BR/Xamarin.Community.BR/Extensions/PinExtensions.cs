@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Numerics;
 using Xamarin.Community.BR.Abstractions;
+using Xamarin.Community.BR.Abstractions.Renderers;
 using Xamarin.Community.BR.Helpers;
+using Xamarin.Community.BR.Renderers.Mapa;
 using Xamarin.Forms;
 
 namespace Xamarin.Community.BR.Extensions
@@ -12,7 +15,27 @@ namespace Xamarin.Community.BR.Extensions
             var avatar = PegarAvatar(membro);
             var localizacao = membro.Localizacao;
 
-            return new Pin(localizacao.Latitude, localizacao.Longitude, avatar);
+            return new Pin(localizacao, avatar);
+        }
+
+        public static IRenderer ToRenderer(this IPin pin, 
+                                           PontoReferencia pontoInicial,
+                                           PontoReferencia pontoFinal,
+                                           Vector2 pontoInicialGlobal,
+                                           Vector2 pontoFinalGlobal,
+                                           IEngine2D engine)
+
+        {
+            var geoPos = pin.GetGeolocalizacao();
+            var pos = geoPos.ToScreenXY(pontoInicial,
+                                        pontoFinal,
+                                        pontoInicialGlobal,
+                                        pontoFinalGlobal);
+
+            return  new PinRenderer(pos, engine)
+            {
+                Cor = Color.FromHex("#313639")
+            };
         }
 
         private static ImageSource PegarAvatar(IAmACommunityMember membro)
