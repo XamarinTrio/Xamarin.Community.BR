@@ -33,7 +33,7 @@ namespace Xamarin.Community.BR.Renderers
 
                 paint.IsAntialias = true;
                 paint.ImageFilter = Color.FromHex("#66000000").ToSKDropShadow(6, 12f);
-                paint.MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, 16f);
+                paint.MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, Constantes.SVG.Mapa.DESFOQUE_SOMBRA);
 
                 if (svgDoc is SKSvgElement svgElement)
                     _canvas.DrawPicture(svgElement.ToSkia(), ref matrix, paint);
