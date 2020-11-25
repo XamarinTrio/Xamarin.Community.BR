@@ -43,12 +43,19 @@ namespace Xamarin.Community.BR.Renderers.Mapa
 
                     _engine.DesenharSvg(svgDoc, matriz);
 
-                    Limites = new Retangulo(
+                    var limitesRenderer = new Retangulo(
                         limitesSvg.Esquerda,
-                        limitesSvg.Cima + 3.5f,
-                        limitesSvg.Direita - 12,
-                        limitesSvg.Baixo - 7,
+                        limitesSvg.Cima,
+                        limitesSvg.Direita,
+                        limitesSvg.Baixo,
                         matriz);
+
+                    //Correção limites pelas sombras
+                    limitesRenderer.Cima += 3.5f;
+                    limitesRenderer.Direita -= 12;
+                    limitesRenderer.Baixo -= 7;
+
+                    Limites = limitesRenderer;
                 }
             }
         }
