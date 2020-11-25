@@ -11,16 +11,26 @@
              BackgroundColor="{StaticResource PaginaBackgroundColor}"
              NavigationPage.HasNavigationBar="False"
              x:Class="Xamarin.Community.BR.Views.Paginas.MainPage">
-    <Grid RowDefinitions="10*,10*,68*,10*,1.5*"
+    <Grid RowDefinitions="10*,10*,38*,30*,10*,1.5*"
+          ColumnDefinitions="20*,60*,20*"
           Padding="0,5">
 
         <controles:Mapa x:Name="mapa"
                         ItemSource="{Binding Pins, Mode=OneTime}"
                         Grid.Row="0"
                         Grid.Column="0"
-                        Grid.RowSpan="5"/>
-        
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="6"/>
+
+        <controles:ZoomSlider Grid.Column="2"
+                              Grid.Row="3"
+                              HeightRequest="200"
+                              Valor="{Binding Source={x:Reference mapa}, Path=Escala, Mode=TwoWay}"
+                              Maximo="3.5"
+                              Minimo="1" />
+
         <Label Text="Olá"
+               Grid.ColumnSpan="3"
                FontFamily="ProximaNovaBold"
                VerticalOptions="CenterAndExpand"
                HorizontalOptions="CenterAndExpand"
@@ -29,6 +39,7 @@
                FontAttributes="Bold"/>
 
         <controles:NeoFrame Grid.Row="1"
+                            Grid.ColumnSpan="3"
                             Margin="{OnPlatform Android='15,1',iOS='40,1'}"
                             Padding="0"
                             CornerRadius="45"
@@ -58,8 +69,9 @@
         <controles:BarraNavegacao x:Name="navegacao"
                                   PesquisaCommand="{Binding PesquisaCommand, Mode=OneTime}"
                                   BotaoInferiorCommand="{Binding DevsPageCommand, Mode=OneTime}"
-                                  Grid.Row="3"
                                   Padding="2"
+                                  Grid.Row="4"
+                                  Grid.ColumnSpan="3"
                                   Grid.RowSpan="2"/>
     </Grid>
 </ContentPage>

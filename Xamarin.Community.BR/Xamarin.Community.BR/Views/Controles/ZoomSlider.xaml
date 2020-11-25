@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles"
+             xmlns:gr="clr-namespace:Xamarin.Community.BR.Renderers.Gradients"
+             x:Class="Xamarin.Community.BR.Views.Controles.ZoomSlider">
+  <ContentView.Content>
+        <controles:NeoFrame x:Name="BarraSlide"
+                            Margin="{OnPlatform Android='22,18',iOS='40,1'}"
+                            Padding="0"
+                            CornerRadius="20"
+                            ShadowBlur="15"
+                            Elevation=".2"
+                            DrawInnerShadow="True"
+                            DrawOuterShadow="True">
+
+            <Ellipse x:Name="Marcador"
+                     Fill="#f7f7f7"
+                     Stroke="#3498DB"
+                     StrokeThickness="6"
+                     WidthRequest="25"
+                     HeightRequest="25"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center" >
+                <Ellipse.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="MarcadorPanUpdated"/>
+                </Ellipse.GestureRecognizers>
+            </Ellipse>
+
+            <controles:NeoFrame.BackgroundGradient>
+                <gr:LinearGradient Angle="90">
+                    <gr:LinearGradient.Stops>
+                        <gr:GradientStop Offset="0" Color="#f7f7f7" />
+                        <gr:GradientStop Offset="1" Color="#f2f2f2" />
+                    </gr:LinearGradient.Stops>
+                </gr:LinearGradient>
+            </controles:NeoFrame.BackgroundGradient>
+        </controles:NeoFrame>
+    </ContentView.Content>
+</ContentView>
