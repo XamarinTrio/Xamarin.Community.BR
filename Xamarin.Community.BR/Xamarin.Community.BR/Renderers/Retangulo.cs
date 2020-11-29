@@ -27,6 +27,13 @@ namespace Xamarin.Community.BR.Renderers
             if (!Transformacao.HasValue)
                 return;
 
+            var escala = Transformacao?.Escala;
+            if (escala.HasValue)
+            {
+                Direita *= escala.Value.X;
+                Baixo *= escala.Value.Y;
+            }
+
             var posicao = Transformacao?.Posicao;
             if (posicao.HasValue)
             {
@@ -34,13 +41,6 @@ namespace Xamarin.Community.BR.Renderers
                 Direita += posicao.Value.X;
                 Cima += posicao.Value.Y;
                 Baixo += posicao.Value.Y;
-            }
-
-            var escala = Transformacao?.Escala;
-            if (escala.HasValue)
-            {
-                Direita *= escala.Value.X;
-                Baixo *= escala.Value.Y;
             }
         }
 

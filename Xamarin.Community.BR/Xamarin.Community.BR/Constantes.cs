@@ -11,6 +11,18 @@ namespace Xamarin.Community.BR
             public const int RAIO = 50;
         }
 
+        public static class GeoLocalizacao
+        {
+            public static class Brasil
+            {
+                public const float LATITUDE_EXTREMO_NORTE = 5.271799f;
+                public const float LONGITUDE_EXTREMO_OESTE = -73.982810f;
+
+                public const float LATITUDE_EXTREMO_SUL = -33.750620f;
+                public const float LONGITUDE_EXTREMO_LESTE = -34.793140f;
+            }
+        }
+
         public static class Navegacao
         {
             public const string URL_RELATIVA = "/";
@@ -91,6 +103,12 @@ namespace Xamarin.Community.BR
             public static class Mapa
             {
                 public const string CONTORNO = "Images.Mapa.svg";
+
+                public const int LARGURA = 408;
+
+                public const int ALTURA = 410;
+
+                public const float DESFOQUE_SOMBRA = 16f;
             }
         }
     }

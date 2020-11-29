@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Svg.Skia;
 using Xamarin.Community.BR.Abstractions;
 using Xamarin.Community.BR.Extensions;
 using Xamarin.Community.BR.Helpers;
+using Xamarin.Community.BR.Renderers;
 using Xamarin.Community.BR.Renderers.Mapa;
 using Xamarin.Forms;
 
@@ -23,6 +25,18 @@ namespace Xamarin.Community.BR.Views.Controles
                 declaringType: typeof(Mapa),
                 propertyChanged: OnItemSourceChanged);
 
+        public static readonly BindableProperty EscalaProperty =
+            BindableProperty.Create(
+                propertyName: nameof(Escala),
+                returnType: typeof(double),
+                declaringType: typeof(Mapa));
+
+        private static Vector2? _pontoInicialGlobal;
+        private static Vector2? _pontoFinalGlobal;
+
+        private static PontoReferencia? _pontoInicial;
+        private static PontoReferencia? _pontoFinal;
+
         private float posicaoX = 0;
         private float posicaoY = 0;
 
@@ -30,6 +44,12 @@ namespace Xamarin.Community.BR.Views.Controles
         private float posicaoAnteriorY = 0;
 
         private double escala = 1;
+
+        public double Escala
+        {
+            get => (double)GetValue(EscalaProperty);
+            set => SetValue(EscalaProperty, value);
+        }
 
         public IEnumerable<IPin> ItemSource
         {
@@ -63,6 +83,20 @@ namespace Xamarin.Community.BR.Views.Controles
 
             if (escala != 1)
                 EscalarCanvas();
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(Escala):
+                    EscalarCanvas(Escala);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnTapped(object sender, EventArgs e) => ResetarMapa();
@@ -135,8 +169,8 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private void EscalarCanvas(double novaEscala = 1)
         {
-            escala = Math.Min(Math.Max(1, novaEscala), 3.5d);
-            canvas.ScaleTo(escala, 0).TentarExecutar();
+            Escala = Math.Min(Math.Max(1, novaEscala), 3.5d);
+            canvas.ScaleTo(Escala, 0).TentarExecutar();
         }
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
@@ -153,82 +187,17 @@ namespace Xamarin.Community.BR.Views.Controles
                 return;
 
             var limites = svgRenderer.Limites;
-            var xparam = (16f * 100) / 408;
-            var yparam = (16f * 100) / 410;
+            var pontoInicial = PegarPontoInicial(limites);
+            var pontoFinal = PegarPontoFinal(limites);
+            var pontoInicialGlobal = PegarPontoInicialGlobal(pontoInicial, pontoFinal);
+            var pontoFinalGlobal = PegarPontoFinalGlobal(pontoInicial, pontoFinal);
 
-            var pontoInicial = new PontoReferencia(
-                new Vector2(limites.Esquerda, limites.Cima),
-                new GeoLocalizacao(5.271799f, -73.982810f));
-
-            var pontoFinal = new PontoReferencia(
-                new Vector2(limites.Direita - xparam, limites.Baixo - yparam),
-                new GeoLocalizacao(-33.750620f, -34.793140f));
-
-            var pontoInicialGlobal = pontoInicial.Localizacao.ToGlobalXY(pontoInicial, pontoFinal);
-            var pontoFinalGlobal = pontoFinal.Localizacao.ToGlobalXY(pontoInicial, pontoFinal);
-
-            var pinRendererCollection = ItemSource.Select(
-                p => p.ToRenderer(pontoInicial, pontoFinal, pontoInicialGlobal, pontoFinalGlobal, engine));
+            var pinRendererCollection = ItemSource
+                .Select(p => p.ToRenderer(pontoInicial, pontoFinal, pontoInicialGlobal, pontoFinalGlobal, engine));
 
             foreach (var render in pinRendererCollection)
             {
                 render.Renderizar(contexto);
-            }
-        }
-
-        private void DesenharPins(SKCanvas canvas, int largura, int altura, SKRect rect)
-        {
-            if (ItemSource?.Any() != true)
-                return;
-
-            var xparam = (16f * 100) / 408;
-            var yparam = (16f * 100) / 410;
-
-            var pontoInicial = new PontoReferencia(
-                new Vector2(rect.Left, rect.Top),
-                new GeoLocalizacao(5.271799f, -73.982810f));
-
-            var pontoFinal = new PontoReferencia(
-                new Vector2(rect.Right - xparam, rect.Bottom - yparam),
-                new GeoLocalizacao(-33.750620f, -34.793140f));
-
-            var pontoInicialGlobal = pontoInicial.Localizacao.ToGlobalXY(pontoInicial, pontoFinal);
-            var pontoFinalGlobal = pontoFinal.Localizacao.ToGlobalXY(pontoInicial, pontoFinal);
-
-            foreach (var pin in ItemSource)
-            {
-                var geoLocalizacao = pin.GetGeolocalizacao();
-                var pos = geoLocalizacao.ToScreenXY(pontoInicial,
-                                                    pontoFinal,
-                                                    pontoInicialGlobal,
-                                                    pontoFinalGlobal);
-
-                using (var paint = new SKPaint())
-                {
-                    paint.Color = SKColor.Parse("#313639");
-                    paint.Style = SKPaintStyle.Fill;
-                    paint.IsAntialias = true;
-
-                    using (var path = new SKPath())
-                    {
-                        var metadeLargura = Constantes.Pin.LARGURA / 2;
-                        var raioPosY = pos.Y - (Constantes.Pin.ALTURA * 0.6f);
-
-                        path.MoveTo(pos.X, pos.Y);
-                        path.ArcTo(Constantes.Pin.RAIO, new SKPoint(pos.X - metadeLargura, raioPosY));
-                        path.ArcTo(metadeLargura, new SKPoint(pos.X + metadeLargura, raioPosY));
-                        path.ArcTo(Constantes.Pin.RAIO, new SKPoint(pos.X, pos.Y));
-                        path.Close();
-
-                        canvas.DrawPath(path, paint);
-
-                        paint.Color = SKColor.Parse("#FFFFFF");
-                        paint.TextAlign = SKTextAlign.Center;
-                        paint.TextSize = 35f;
-
-                        canvas.DrawText("1", pos.X, raioPosY * 1.01f, paint);
-                    }
-                }
             }
         }
 
@@ -253,6 +222,54 @@ namespace Xamarin.Community.BR.Views.Controles
 
                 mapa.canvas.InvalidateSurface();
             }
+        }
+
+        private static PontoReferencia PegarPontoInicial(Retangulo limites)
+        {
+            if (!_pontoInicial.HasValue)
+            {
+                _pontoInicial = new PontoReferencia(
+                    new Vector2(limites.Esquerda, limites.Cima),
+                    new GeoLocalizacao(
+                        Constantes.GeoLocalizacao.Brasil.LATITUDE_EXTREMO_NORTE,
+                        Constantes.GeoLocalizacao.Brasil.LONGITUDE_EXTREMO_OESTE));
+            }
+
+            return _pontoInicial.Value;
+        }
+
+        private static PontoReferencia PegarPontoFinal(Retangulo limites)
+        {
+            if (!_pontoFinal.HasValue)
+            {
+                var sombraRelativo = Constantes.SVG.Mapa.DESFOQUE_SOMBRA * 100;
+                var xparam = sombraRelativo / Constantes.SVG.Mapa.LARGURA;
+                var yparam = sombraRelativo / Constantes.SVG.Mapa.ALTURA;
+
+                _pontoFinal = new PontoReferencia(
+                    new Vector2(limites.Direita - xparam, limites.Baixo - yparam),
+                    new GeoLocalizacao(
+                        Constantes.GeoLocalizacao.Brasil.LATITUDE_EXTREMO_SUL,
+                        Constantes.GeoLocalizacao.Brasil.LONGITUDE_EXTREMO_LESTE));
+            }
+
+            return _pontoFinal.Value;
+        }
+
+        private static Vector2 PegarPontoInicialGlobal(PontoReferencia pontoInicial, PontoReferencia pontoFinal)
+        {
+            if (!_pontoInicialGlobal.HasValue)
+                _pontoInicialGlobal = pontoInicial.Localizacao.ToGlobalXY(pontoInicial, pontoFinal);
+
+            return _pontoInicialGlobal.Value;
+        }
+
+        private static Vector2 PegarPontoFinalGlobal(PontoReferencia pontoInicial, PontoReferencia pontoFinal)
+        {
+            if (!_pontoFinalGlobal.HasValue)
+                _pontoFinalGlobal = pontoFinal.Localizacao.ToGlobalXY(pontoInicial, pontoFinal);
+
+            return _pontoFinalGlobal.Value;
         }
     }
 }
