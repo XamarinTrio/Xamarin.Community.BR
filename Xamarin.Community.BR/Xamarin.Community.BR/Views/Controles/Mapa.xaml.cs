@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Svg.Skia;
@@ -43,8 +44,6 @@ namespace Xamarin.Community.BR.Views.Controles
         private float posicaoAnteriorX = 0;
         private float posicaoAnteriorY = 0;
 
-        private double escala = 1;
-
         public double Escala
         {
             get => (double)GetValue(EscalaProperty);
@@ -81,7 +80,7 @@ namespace Xamarin.Community.BR.Views.Controles
             if (posicaoX != 0 || posicaoY != 0)
                 ReposicionarCanvas();
 
-            if (escala != 1)
+            if (Escala != 1)
                 EscalarCanvas();
         }
 
@@ -108,7 +107,7 @@ namespace Xamarin.Community.BR.Views.Controles
                 case GestureStatus.Started:
                     break;
                 case GestureStatus.Running:
-                    var novaEscala = escala * e.Scale;
+                    var novaEscala = Escala * e.Scale;
                     EscalarCanvas(novaEscala);
                     break;
                 case GestureStatus.Completed:
@@ -157,7 +156,7 @@ namespace Xamarin.Community.BR.Views.Controles
             var largura = canvas.Width.ToSingle();
             var altura = canvas.Height.ToSingle();
 
-            var fEscala = escala.ToSingle();
+            var fEscala = Escala.ToSingle();
             var limiteHorizontal = largura - ((largura / fEscala) / 5);
             var limiteVertical = altura - ((altura / fEscala) / 3);
 
@@ -169,8 +168,11 @@ namespace Xamarin.Community.BR.Views.Controles
 
         private void EscalarCanvas(double novaEscala = 1)
         {
-            Escala = Math.Min(Math.Max(1, novaEscala), 3.5d);
-            canvas.ScaleTo(Escala, 0).TentarExecutar();
+            SafeLocker.For(Escala, () =>
+            {
+                Escala = Math.Min(Math.Max(1, novaEscala), 3.5d);
+                canvas.ScaleTo(Escala, 0).TentarExecutar();
+            });
         }
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
