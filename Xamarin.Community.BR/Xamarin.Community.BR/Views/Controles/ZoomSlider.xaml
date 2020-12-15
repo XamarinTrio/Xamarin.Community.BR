@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controles="clr-namespace:Xamarin.Community.BR.Views.Controles"
              xmlns:gr="clr-namespace:Xamarin.Community.BR.Renderers.Gradients"
+             xmlns:helpers="clr-namespace:Xamarin.Community.BR.Helpers"
              x:Class="Xamarin.Community.BR.Views.Controles.ZoomSlider">
-  <ContentView.Content>
+
+    <ContentView.Content>
         <controles:NeoFrame x:Name="BarraSlide"
                             Margin="{OnPlatform Android='22,18',iOS='40,1'}"
                             Padding="0"
@@ -14,18 +16,18 @@
                             DrawInnerShadow="True"
                             DrawOuterShadow="True">
 
+            <controles:NeoFrame.Effects>
+                <helpers:TouchEffect TouchAction="TouchEffect_TouchAction"/>
+            </controles:NeoFrame.Effects>
+
             <Ellipse x:Name="Marcador"
                      Fill="#f7f7f7"
                      Stroke="#3498DB"
                      StrokeThickness="6"
                      WidthRequest="25"
                      HeightRequest="25"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Center" >
-                <Ellipse.GestureRecognizers>
-                    <PanGestureRecognizer PanUpdated="MarcadorPanUpdated"/>
-                </Ellipse.GestureRecognizers>
-            </Ellipse>
+                     VerticalOptions="End"
+                     HorizontalOptions="Center"/>
 
             <controles:NeoFrame.BackgroundGradient>
                 <gr:LinearGradient Angle="90">

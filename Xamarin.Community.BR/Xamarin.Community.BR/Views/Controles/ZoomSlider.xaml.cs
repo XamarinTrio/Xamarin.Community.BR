@@ -1,6 +1,5 @@
-﻿
-using System;
-using Xamarin.Community.BR.Extensions;
+﻿using System;
+using Xamarin.Community.BR.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.Community.BR.Views.Controles
@@ -28,8 +27,7 @@ namespace Xamarin.Community.BR.Views.Controles
                 declaringType: typeof(ZoomSlider),
                 defaultValue: double.MinValue);
 
-        private double posicaoMarcador = 0;
-        private double posicaoAnteriorY = 0;
+        private bool panHabilitado;
 
         public double Valor
         {
@@ -54,29 +52,42 @@ namespace Xamarin.Community.BR.Views.Controles
             InitializeComponent();
         }
 
-        private void MarcadorPanUpdated(object sender, PanUpdatedEventArgs e)
+        private void TouchEffect_TouchAction(object sender, TouchActionEventArgs args)
         {
+            if (args is null)
+                return;
 
-            switch (e.StatusType)
+            var retangulo = new Forms.Rectangle(
+                new Point(Marcador.X, (Marcador.Y + Marcador.TranslationY)),
+                Marcador.Bounds.Size);
+
+            switch (args.Type)
             {
-                case GestureStatus.Started:
+                case TouchActionType.Entered:
                     break;
-                case GestureStatus.Running:
-                    var posicaoY = posicaoMarcador + (e.TotalY - posicaoAnteriorY);
-                    if (posicaoY == 0)
+                case TouchActionType.Pressed:
+                    panHabilitado = retangulo.Contains(args.Location);
+                    break;
+                case TouchActionType.Moved:
+                    if (!panHabilitado)
                         return;
 
-                    var limite = BarraSlide.Height / 2;
-                    posicaoY = Math.Max(Math.Min(posicaoY, limite), -limite);
-                    Marcador.TranslateTo(0, posicaoY, 0).TentarExecutar();
+                    if (args.Location.IsEmpty)
+                        return;
 
-                    posicaoAnteriorY = e.TotalY;
-                    posicaoMarcador = posicaoY;
+                    var altura = BarraSlide.Height - BarraSlide.Margin.Top - BarraSlide.Margin.Bottom;
+                    var posicaoY = -(BarraSlide.Height - args.Location.Y);
+                    var limite = altura;
+
+                    posicaoY = Math.Max(Math.Min(posicaoY, (limite - Marcador.Height / 2)), -limite);
+                    Marcador.TranslationY = posicaoY;
                     break;
-                case GestureStatus.Completed:
-                case GestureStatus.Canceled:
+                case TouchActionType.Exited:
+                    break;
+                case TouchActionType.Released:
+                case TouchActionType.Cancelled:
                 default:
-                    posicaoAnteriorY = 0;
+                    panHabilitado = false;
                     break;
             }
         }
