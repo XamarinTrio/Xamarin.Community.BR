@@ -1,9 +1,6 @@
-﻿
-using System;
-using Xamarin.Community.BR.Extensions;
+﻿using System;
 using Xamarin.Community.BR.Helpers;
 using Xamarin.Forms;
-using Xamarin.Forms.Shapes;
 
 namespace Xamarin.Community.BR.Views.Controles
 {
@@ -30,8 +27,6 @@ namespace Xamarin.Community.BR.Views.Controles
                 declaringType: typeof(ZoomSlider),
                 defaultValue: double.MinValue);
 
-        private double posicaoMarcador = 0;
-        private double posicaoAnteriorY = 0;
         private bool panHabilitado;
 
         public double Valor
