@@ -11,6 +11,14 @@ namespace Xamarin.Community.BR.Views.Controles
                 propertyName: nameof(Valor),
                 returnType: typeof(double),
                 declaringType: typeof(ZoomSlider),
+                defaultValue: 1d,
+                propertyChanged: OnEscalaChanged);
+
+        public static readonly BindableProperty PassoProperty =
+            BindableProperty.Create(
+                propertyName: nameof(Passo),
+                returnType: typeof(double),
+                declaringType: typeof(ZoomSlider),
                 defaultValue: 1d);
 
         public static readonly BindableProperty MaximoProperty =
@@ -28,6 +36,16 @@ namespace Xamarin.Community.BR.Views.Controles
                 defaultValue: double.MinValue);
 
         private bool panHabilitado;
+
+        private bool internalSet;
+
+        private (double minimo, double maximo) limiteMarcador;
+
+        public double Passo
+        {
+            get => (double)GetValue(PassoProperty);
+            set => SetValue(PassoProperty, value);
+        }
 
         public double Valor
         {
@@ -47,10 +65,8 @@ namespace Xamarin.Community.BR.Views.Controles
             set => SetValue(MinimoProperty, value);
         }
 
-        public ZoomSlider()
-        {
+        public ZoomSlider() =>
             InitializeComponent();
-        }
 
         private void TouchEffect_TouchAction(object sender, TouchActionEventArgs args)
         {
@@ -75,12 +91,12 @@ namespace Xamarin.Community.BR.Views.Controles
                     if (args.Location.IsEmpty)
                         return;
 
-                    var altura = BarraSlide.Height - BarraSlide.Margin.Top - BarraSlide.Margin.Bottom;
                     var posicaoY = -(BarraSlide.Height - args.Location.Y);
-                    var limite = altura;
+                    var limites = PegarLimites();
 
-                    posicaoY = Math.Max(Math.Min(posicaoY, (limite - Marcador.Height / 2)), -limite);
+                    posicaoY = Math.Max(Math.Min(posicaoY, limites.maximo), limites.minimo);
                     Marcador.TranslationY = posicaoY;
+                    AlterarPosicaoMarcador();
                     break;
                 case TouchActionType.Exited:
                     break;
@@ -90,6 +106,67 @@ namespace Xamarin.Community.BR.Views.Controles
                     panHabilitado = false;
                     break;
             }
+        }
+
+        private void AlterarPosicaoMarcador()
+        {
+            try
+            {
+                internalSet = true;
+
+                var limites = PegarLimites();
+                var novaPosicaoMarcador = Math.Abs(Marcador.TranslationY);
+                var valorEmPorcentagem = ((novaPosicaoMarcador) * 100)
+                    / (Math.Abs(limites.minimo));
+
+                var novaEscala = (valorEmPorcentagem * (Maximo - Minimo)) / 100;
+                Valor = novaEscala + Minimo;
+            }
+            finally
+            {
+                internalSet = false;
+            }
+        }
+
+        private void ReprocessarPosicaoMarcador()
+        {
+            if (internalSet)
+                return;
+
+            var limites = PegarLimites();
+            var novaEscala = Valor - Minimo;
+            var valorEmPorcentagem = novaEscala * 100 / (Maximo - Minimo);
+            var novaPosicaoMarcador = (valorEmPorcentagem * Math.Abs(limites.minimo)) / 100;
+
+            Marcador.TranslationY = -novaPosicaoMarcador;
+        }
+
+        private (double minimo, double maximo) PegarLimites()
+        {
+            var altura = BarraSlide.Height - BarraSlide.Margin.Top - BarraSlide.Margin.Bottom;
+            var limite = (-altura, (altura - Marcador.Height / 2));
+            if (limiteMarcador != limite)
+                limiteMarcador = limite;
+
+            return limiteMarcador;
+        }
+
+        private void BotaoZoomTapped(object sender, EventArgs e)
+        {
+            if(sender == BotaoIncremeto)
+            {
+                Valor = Math.Min(Math.Max((Valor + Passo), Minimo), Maximo);
+            }
+            else if (sender == BotaoDecremento)
+            {
+                Valor = Math.Min(Math.Max((Valor - Passo), Minimo), Maximo);
+            }
+        }
+
+        private static void OnEscalaChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is ZoomSlider slider)
+                slider.ReprocessarPosicaoMarcador();
         }
     }
 }
